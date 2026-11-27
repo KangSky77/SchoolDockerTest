@@ -1,0 +1,308 @@
+/* =========================================================
+   mini-home : 베이지 톤 테마
+   - 기존 index.php / board.php / write.php / view.php 의
+     HTML 구조는 그대로 두고 이 파일만 교체하면 됩니다.
+   ========================================================= */
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap");
+
+/* ---------- 색상 · 공통 값 ---------- */
+:root {
+    --bg:          #f5efe6;   /* 페이지 배경 (베이지) */
+    --surface:     #fffdf9;   /* 카드 배경 (아이보리) */
+    --surface-2:   #efe6d8;   /* 표 머리, 입력칸 테두리 */
+    --line:        #e4d8c6;   /* 구분선 */
+    --text:        #3b2f2a;   /* 본문 글자 (진한 갈색) */
+    --text-soft:   #7a6a5d;   /* 보조 글자 */
+    --accent:      #8b5e3c;   /* 포인트 색 (딥 브라운) */
+    --accent-dark: #6f4a2e;   /* 버튼 hover */
+    --accent-soft: #f3e7da;   /* 표 hover, 포커스 링 */
+
+    --radius:      14px;
+    --shadow:      0 6px 24px rgba(91, 64, 41, 0.08);
+    --shadow-hover:0 10px 28px rgba(91, 64, 41, 0.16);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 상단 헤더 ---------- */
+header {
+    text-align: center;
+    padding: 56px 20px 44px;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.55) 0, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(139, 94, 60, 0.10) 0, transparent 50%),
+        #eadfce;
+    border-bottom: 1px solid var(--line);
+}
+
+header h1 {
+    margin: 0;
+    font-family: "Gowun Batang", serif;
+    font-size: clamp(28px, 5vw, 40px);
+    letter-spacing: -0.5px;
+    color: var(--text);
+}
+
+header p {
+    margin: 10px 0 0;
+    color: var(--text-soft);
+    font-size: 15px;
+}
+
+/* ---------- 메뉴 ---------- */
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    background: rgba(255, 253, 249, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+}
+
+nav a {
+    padding: 8px 18px;
+    border-radius: 999px;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* ---------- 본문 카드 ---------- */
+main {
+    max-width: 880px;
+    min-height: 320px;
+    margin: 40px auto;
+    padding: 40px 44px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+h2 {
+    margin: 0 0 20px;
+    font-family: "Gowun Batang", serif;
+    font-size: 26px;
+    color: var(--accent);
+}
+
+/* 제목 아래 짧은 밑줄 포인트 */
+h2::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 3px;
+    margin-top: 10px;
+    border-radius: 2px;
+    background: var(--accent);
+    opacity: 0.6;
+}
+
+p {
+    margin: 0 0 14px;
+}
+
+a {
+    color: var(--accent);
+}
+
+hr {
+    border: 0;
+    border-top: 1px dashed var(--line);
+    margin: 24px 0;
+}
+
+/* ---------- 게시판 표 ---------- */
+table {
+    width: 100%;
+    margin: 8px 0 28px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+th {
+    background: var(--surface-2);
+    color: var(--text-soft);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+tr:last-child td {
+    border-bottom: 0;
+}
+
+td {
+    transition: background 0.15s;
+}
+
+tr:hover td {
+    background: var(--accent-soft);
+}
+
+td a {
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+td a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* 번호 · 작성일 칸은 작고 흐리게 */
+td:first-child,
+td:last-child {
+    color: var(--text-soft);
+    font-size: 14px;
+}
+
+/* ---------- 글쓰기 폼 ---------- */
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-soft);
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 0 0 20px;
+    font: inherit;
+    color: var(--text);
+    background: #fff;
+    border: 1px solid var(--surface-2);
+    border-radius: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+/* ---------- 버튼 ---------- */
+.btn,
+button {
+    display: inline-block;
+    padding: 11px 24px;
+    margin-right: 6px;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    border: 0;
+    border-radius: 999px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(139, 94, 60, 0.25);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.btn:hover,
+button:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn:active,
+button:active {
+    transform: translateY(0);
+}
+
+/* 폼 안의 '목록' 버튼은 테두리형으로 */
+form .btn {
+    color: var(--accent);
+    background: transparent;
+    border: 1.5px solid var(--accent);
+    box-shadow: none;
+}
+
+form .btn:hover {
+    color: #fff;
+    background: var(--accent);
+}
+
+/* ---------- 하단 ---------- */
+footer {
+    text-align: center;
+    padding: 10px 20px 40px;
+    color: var(--text-soft);
+    font-size: 13px;
+    letter-spacing: 0.3px;
+}
+
+/* ---------- 모바일 ---------- */
+@media (max-width: 640px) {
+    main {
+        margin: 20px 12px;
+        padding: 28px 20px;
+    }
+
+    nav a {
+        padding: 8px 12px;
+    }
+
+    th, td {
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+
+    /* 번호 · 작성자 칸은 줄바꿈 없이 */
+    th,
+    td:first-child,
+    td:nth-child(3) {
+        white-space: nowrap;
+    }
+
+    /* 좁은 화면에서는 작성일 칸 숨기기 */
+    th:last-child,
+    td:last-child {
+        display: none;
+    }
+}
